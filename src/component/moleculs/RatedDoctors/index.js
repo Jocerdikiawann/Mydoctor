@@ -1,9 +1,53 @@
 import React from 'react';
 import {StyleSheet, Image, Text, View, TouchableOpacity} from 'react-native';
-import {IconStar} from '../../../assets';
+import {IconStar, IconStarKosong} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const RatedDoctors = ({name, avatar, desc, onPress}) => {
+const RatedDoctors = ({name, avatar, desc, rate, onPress}) => {
+  const IconStaring = () => {
+    if (rate === 1) {
+      return <IconStar />;
+    }
+    if (rate === 2) {
+      return (
+        <>
+          <IconStar />
+          <IconStar />
+        </>
+      );
+    }
+    if (rate === 3) {
+      return (
+        <>
+          <IconStar />
+          <IconStar />
+          <IconStar />
+        </>
+      );
+    }
+    if (rate === 4) {
+      return (
+        <>
+          <IconStar />
+          <IconStar />
+          <IconStar />
+          <IconStar />
+        </>
+      );
+    }
+    if (rate === 5) {
+      return (
+        <>
+          <IconStar />
+          <IconStar />
+          <IconStar />
+          <IconStar />
+          <IconStar />
+        </>
+      );
+    }
+    return <IconStarKosong />;
+  };
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={avatar} style={styles.avatar} />
@@ -12,11 +56,7 @@ const RatedDoctors = ({name, avatar, desc, onPress}) => {
         <Text style={styles.category}>{desc}</Text>
       </View>
       <View style={styles.rate}>
-        <IconStar />
-        <IconStar />
-        <IconStar />
-        <IconStar />
-        <IconStar />
+        <IconStaring />
       </View>
     </TouchableOpacity>
   );

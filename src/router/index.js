@@ -1,22 +1,23 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {
-  GetStarted,
-  Splash,
-  Register,
-  Login,
-  UploadPhoto,
-  Doctors,
-  Messages,
-  Hospitals,
-  ChooseDoctors,
-  Chatting,
-  UserProfile,
-  UpdateProfile,
-  DoctorProfile,
-} from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import {BottomNavigator} from '../component';
+import {
+  Chatting,
+  ChooseDoctors,
+  DoctorProfile,
+  Doctors,
+  GetStarted,
+  Hospitals,
+  Login,
+  Messages,
+  Register,
+  Splash,
+  UpdateProfile,
+  UploadPhoto,
+  UserProfile,
+} from '../pages';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,3 +95,9 @@ const Router = () => {
 };
 
 export default Router;
+
+const styles = StyleSheet.create({
+  geser: {
+    flexDirection: 'row',
+  },
+});

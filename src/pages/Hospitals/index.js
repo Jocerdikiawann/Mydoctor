@@ -1,35 +1,53 @@
-import React from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
-import {Hospitals2, Hospitals1, Hospitals3, ILBgHospitals} from '../../assets';
+import React, {useEffect, useState} from 'react';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {ILBgHospitals} from '../../assets';
 import {ListHospitals} from '../../component';
+import {Fire} from '../../config';
 import {colors, fonts} from '../../utils';
 
 const Hospitals = () => {
+  const [hospitals, setHospitals] = useState([]);
+  useEffect(() => {
+    Fire.database()
+      .ref('hospitals/')
+      .once('value')
+      .then((res) => {
+        console.log('data: ', res.val());
+        if (res.val()) {
+          setHospitals(res.val());
+        }
+      })
+      .catch((err) => {
+        showError(err.message);
+      });
+  }, []);
+
   return (
     <View style={styles.page}>
       <ImageBackground source={ILBgHospitals} style={styles.background}>
         <Text style={styles.title}>Nearby Hospitals</Text>
-        <Text style={styles.desc}>3 Tersedia</Text>
+        <Text style={styles.desc}>Rumah Sakit Tersedia</Text>
       </ImageBackground>
       <View style={styles.content}>
-        <ListHospitals
-          type="Rumah sakit umum"
-          name="Permata ibu"
-          address="Jln Bhakti Anjay 20"
-          pic={Hospitals1}
-        />
-        <ListHospitals
-          type="Rumah sakit anak"
-          name="Permata anak"
-          address="Jln Bhakti Anjay 20"
-          pic={Hospitals2}
-        />
-        <ListHospitals
-          type="Rumah sakit jiwa"
-          name="Permata jiwa"
-          address="Jln Bhakti Anjay 20"
-          pic={Hospitals3}
-        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {hospitals.map((item) => {
+            return (
+              <ListHospitals
+                key={item.id}
+                type={item.type}
+                name={item.title}
+                address={item.address}
+                image={item.image}
+              />
+            );
+          })}
+        </ScrollView>
       </View>
     </View>
   );
@@ -39,7 +57,7 @@ export default Hospitals;
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.cadangan,
     flex: 1,
   },
   background: {

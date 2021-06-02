@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
-import {Button, Gap, Header, Input, Profile} from '../../component';
-import {Fire} from '../../config';
-import {colors, getData, storeData} from '../../utils';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {ILNullPhoto} from '../../assets';
+import {Button, Gap, Header, Input, Profile} from '../../component';
+import {Fire} from '../../config';
+import {colors, getData, showError, showSuccess, storeData} from '../../utils';
 
 const UpdateProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -26,28 +25,63 @@ const UpdateProfile = ({navigation}) => {
     });
   }, []);
 
+  //fungsi update
   const update = () => {
     console.log('profile: ', profile);
+    console.log('New Password: ', password);
+
+    //jika password lebih dari 0 maka tandanya password akan diubah
+    if (password.length > 0) {
+      //validasi password minimal memiliki 6 karakter
+      if (password.length < 6) {
+        showError('Password kurang dari 6 karakter!');
+      } else {
+        //memanggil fungsi update password jika karakter password terpenuhi
+        //lalu mengupdate profile data ke firebase beserta password yang di ubah
+        updatePassword();
+        updateProfileData();
+        navigation.replace('MainApp');
+      }
+    } else {
+      //memanggil fungsi update profile data jika password tak di ubah,
+      //namun merubah profile nama atau yang lain, selain password
+      updateProfileData();
+      navigation.replace('MainApp');
+    }
+  };
+
+  //fungsi mengupdate password
+  const updatePassword = () => {
+    //kalau panjang password sama dengan 6 karakter
+    //mengecek difirebase
+    Fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        //update password
+        user.updatePassword(password).catch((err) => {
+          showError(err.message);
+        });
+      }
+    });
+  };
+
+  //fungsi updateProfile
+  const updateProfileData = () => {
     const data = profile;
     data.photo = photoForDB;
-
     Fire.database()
       .ref(`users/${profile.uid}/`)
       .update(data)
       .then(() => {
         console.log('success: ', data);
+        showSuccess('Berhasil Update data profile!');
         storeData('user', data);
       })
       .catch((err) => {
-        showMessage({
-          message: err.message,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(err.message);
       });
   };
 
+  //fungsi changeText
   const changeText = (key, value) => {
     setProfile({
       ...profile,
@@ -55,6 +89,7 @@ const UpdateProfile = ({navigation}) => {
     });
   };
 
+  //fungsi getImage
   const getImage = () => {
     launchImageLibrary(
       //mengoptimalkan dengan fungsi option dari library image picker
@@ -66,12 +101,7 @@ const UpdateProfile = ({navigation}) => {
         //response didcancel didapat dari response bawaan react native
         if (response.didCancel || response.error) {
           //jika di cancel maka tampilkan pesan ini
-          showMessage({
-            message: 'Oops, anda tidak memilih foto manapun',
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('Opps, anda tidak memilih foto manapun!');
           //ketika berhasil upload image tampilkan ini
         } else {
           //melihat response apa saja setelah upload
@@ -108,7 +138,12 @@ const UpdateProfile = ({navigation}) => {
           <Gap height={24} />
           <Input label="Email" value={profile.email} disable />
           <Gap height={24} />
-          <Input label="Password" value={password} />
+          <Input
+            label="Password"
+            value={password}
+            onChangeText={(value) => setPassword(value)}
+            secureTextEntry
+          />
           <Gap height={40} />
           <Button title="Save Profile" onPress={update} />
         </View>

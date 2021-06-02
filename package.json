@@ -1,5 +1,5 @@
 {
-  "name": "MyDoctor",
+  "name": "MyHealth",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^5.10.6",
     "@react-navigation/native": "^5.8.2",
     "@react-navigation/stack": "^5.11.1",
+    "@reduxjs/toolkit": "^1.5.1",
     "firebase": "^8.2.3",
     "react": "16.13.1",
     "react-native": "0.63.3",
@@ -22,10 +23,14 @@
     "react-native-gesture-handler": "^1.8.0",
     "react-native-image-picker": "^3.1.4",
     "react-native-reanimated": "^1.13.1",
+    "react-native-redash": "^16.0.11",
+    "react-native-rename": "^2.7.0",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.12.0",
     "react-native-svg": "^12.1.0",
-    "react-native-svg-transformer": "^0.14.3"
+    "react-native-svg-transformer": "^0.14.3",
+    "react-redux": "^7.2.3",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

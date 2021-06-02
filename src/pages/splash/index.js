@@ -6,26 +6,23 @@ import {colors, fonts} from '../../utils';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
-    setTimeout(() => {
-      //cek user sedang login atau tidak
-      //session firebase kurang lebih sekitar 1 jam secara default
-      Fire.auth().onAuthStateChanged((user) => {
-        //jika user ada
+    const unSubscribe = Fire.auth().onAuthStateChanged((user) => {
+      setTimeout(() => {
         if (user) {
-          //user login
           console.log('user: ', user);
           navigation.replace('MainApp');
         } else {
-          //user logout
           navigation.replace('GetStarted');
         }
-      });
-    }, 3000);
-  }, []);
+      }, 3000);
+    });
+    
+    return () => unSubscribe();
+  }, [navigation]);
   return (
     <View style={styles.page}>
       <ILlogo />
-      <Text style={styles.title}>MyDoctor</Text>
+      <Text style={styles.title}>MyHealth</Text>
     </View>
   );
 };

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "MyDoctor-tvOS.app"
-               BlueprintName = "MyDoctor-tvOS"
-               ReferencedContainer = "container:MyDoctor.xcodeproj">
+               BuildableName = "MyHealth-tvOS.app"
+               BlueprintName = "MyHealth-tvOS"
+               ReferencedContainer = "container:MyHealth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "MyDoctor-tvOSTests.xctest"
-               BlueprintName = "MyDoctor-tvOSTests"
-               ReferencedContainer = "container:MyDoctor.xcodeproj">
+               BuildableName = "MyHealth-tvOSTests.xctest"
+               BlueprintName = "MyHealth-tvOSTests"
+               ReferencedContainer = "container:MyHealth.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "MyDoctor-tvOS.app"
-            BlueprintName = "MyDoctor-tvOS"
-            ReferencedContainer = "container:MyDoctor.xcodeproj">
+            BuildableName = "MyHealth-tvOS.app"
+            BlueprintName = "MyHealth-tvOS"
+            ReferencedContainer = "container:MyHealth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "MyDoctor-tvOS.app"
-            BlueprintName = "MyDoctor-tvOS"
-            ReferencedContainer = "container:MyDoctor.xcodeproj">
+            BuildableName = "MyHealth-tvOS.app"
+            BlueprintName = "MyHealth-tvOS"
+            ReferencedContainer = "container:MyHealth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

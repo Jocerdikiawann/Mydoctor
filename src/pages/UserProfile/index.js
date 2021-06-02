@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {ILNullPhoto} from '../../assets';
 import {Gap, Header, List, Profile} from '../../component';
-import {colors, getData} from '../../utils';
+import {Fire} from '../../config';
+import {colors, getData, showError} from '../../utils';
 
 const UserProfile = ({navigation}) => {
   //membuat data dinamis dengan useState
@@ -19,6 +20,19 @@ const UserProfile = ({navigation}) => {
       setProfile(data);
     });
   }, []);
+
+  //fungsi sign out
+  const signOut = () => {
+    Fire.auth()
+      .signOut()
+      .then(() => {
+        console.log('success sign out');
+        navigation.replace('GetStarted');
+      })
+      .catch((err) => {
+        showError(err.message);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -42,22 +56,11 @@ const UserProfile = ({navigation}) => {
         onPress={() => navigation.navigate('UpdateProfile')}
       />
       <List
-        name="Edit Profile"
-        desc="Last Update Yesterday"
-        type="next"
-        icon="language"
-      />
-      <List
-        name="Edit Profile"
-        desc="Last Update Yesterday"
-        type="next"
-        icon="rate"
-      />
-      <List
-        name="Edit Profile"
+        name="Sign Out"
         desc="Last Update Yesterday"
         type="next"
         icon="help"
+        onPress={signOut}
       />
     </View>
   );

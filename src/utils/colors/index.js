@@ -12,11 +12,13 @@ const mainColors = {
   black1: '#000000',
   black2: 'rgba(0,0,0,0.5)',
   red1: '#e06379',
+  uca: '#c4be66',
 };
 
 export const colors = {
   primary: mainColors.green1,
   secondary: mainColors.dark1,
+  cadangan: mainColors.uca,
   white: 'white',
   black: 'black',
   disable: mainColors.grey3,

@@ -4,10 +4,18 @@ import {colors, fonts} from '../../../utils';
 import {Button, Gap} from '../../atoms';
 import DarkProfile from './darkProfile';
 
-const Headers = ({onPress, title, type}) => {
-  if(type === 'dark-profile') {
+const Headers = ({onPress, title, type, photo, desc}) => {
+  if (type === 'dark-profile') {
     //kalo mau buat component gunakan CamelCase
-    return <DarkProfile onPress={onPress}/>;
+    return (
+      <DarkProfile
+        onPress={onPress}
+        title={title}
+        type={type}
+        photo={photo}
+        desc={desc}
+      />
+    );
   }
   return (
     <View style={styles.page(type)}>
@@ -43,5 +51,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: fonts.primary.normal,
     color: type === 'dark' ? colors.white : colors.text.primary,
+    textTransform: 'capitalize',
   }),
 });

@@ -2,10 +2,10 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {colors, fonts} from '../../../utils';
 
-const ListHospitals = ({type, name, pic, address}) => {
+const ListHospitals = ({type, name, image, address}) => {
   return (
     <View style={styles.container}>
-      <Image source={pic} style={styles.picture} />
+      <Image source={{uri: image}} style={styles.picture} />
       <View>
         <Text style={styles.title}>{type}</Text>
         <Text style={styles.title}>{name}</Text>
@@ -17,6 +17,7 @@ const ListHospitals = ({type, name, pic, address}) => {
 
 export default ListHospitals;
 
+const width_proportion = '80%';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
   address: {
+    width: width_proportion,
     fontSize: 12,
     fontFamily: fonts.primary[300],
     color: colors.text.secondary,

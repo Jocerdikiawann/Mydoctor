@@ -1,0 +1,106 @@
+Schema database chatting
+
+-chatting 
+
+    -chatId-->(uid1_uid2) = user1 dengan dokter 1
+        -allChat
+            -dateChat --> (2021-04-13)
+                -chat1
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+                -chat2
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+
+            -dateChat --> (2021-04-14)
+                -chat1
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+                -chat2
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+
+    -chatId-->(uid1_uid2) = user1 dengan dokter 2
+        -allChat
+            -dateChat --> (2021-04-13)
+                -chat1
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+                -chat2
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+
+            -dateChat --> (2021-04-15)
+                -chat1
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+                -chat2
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+    
+    -chatId-->(uid1_uid2) = user2 dengan dokter 1
+        -allChat
+            -dateChat --> (2021-04-13)
+                -chat1
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+                -chat2
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+            -dateChat --> (2021-04-16)
+                -chat1
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+                -chat2
+                    -sentBy
+                    -chatDate
+                    -chatTime
+                    -chatContent
+
+- messages history
+    -uid
+        -chatId --> nurkholid ke dokter alika
+            -lastChat
+            -lastChatDate
+            -uidPartner
+
+        -chatId --> nurkholid ke dokter joni
+            -lastChat
+            -lastChatDate
+            -uidPartner
+    -uid
+        -chatId --> dokter alika dengan nurkholid
+            -lastChat
+            -lastChatDate
+            -uidPartner
+
+- Push Notif 
+//tapi jangan gunakan perulangan, ambil stack terakhir berdasarkan uid
+//lalu push ke notif setiap data messages mengalami update
+    -uid 
+        -chatId --> nurkholid ke dokter alika
+            -lastChat
+            -lastChatDate
+            -uidPartner

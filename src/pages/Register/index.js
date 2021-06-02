@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input, Loading} from '../../component';
 import {Fire} from '../../config';
-import {colors, getData, storeData, useForm} from '../../utils';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {colors, showError, storeData, useForm} from '../../utils';
 
 const Register = ({navigation}) => {
   //pengumpulan dat menggunakan state, untuk mengubah data gunakan setData / set(namaData)
@@ -49,12 +48,7 @@ const Register = ({navigation}) => {
         const errorMessage = error.message;
         setLoading(false);
         // kalo lupa buka documentasi https://www.npmjs.com/package/react-native-flash-message
-        showMessage({
-          message: errorMessage,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(errorMessage);
         console.log('error: ', error);
       });
   };

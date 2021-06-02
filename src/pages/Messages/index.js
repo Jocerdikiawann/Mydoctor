@@ -1,43 +1,66 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Doctor1, Doctor2, Doctor3} from '../../assets';
 import {List} from '../../component';
-import {colors, fonts} from '../../utils';
+import {Fire} from '../../config';
+import {colors, fonts, getData} from '../../utils';
 
 const Messages = ({navigation}) => {
-  const [doctors] = useState([
-    {
-      id: 1,
-      profile: Doctor1,
-      name: 'Amanda Manopause',
-      desc: 'Baik bu, terima kasih atas wakt...',
-    },
-    {
-      id: 2,
-      profile: Doctor2,
-      name: 'Stephen Halian',
-      desc: 'Baik bu, terima kasih atas wakt...',
-    },
-    {
-      id: 3,
-      profile: Doctor3,
-      name: 'Edward Jazuli',
-      desc: 'Baik bu, terima kasih atas wakt...',
-    },
-  ]);
+  const [user, setUser] = useState({});
+  const [historyChat, setHistoryChat] = useState([]);
+
+  useEffect(() => {
+    getDataUserFromLocal();
+    const rootDB = Fire.database().ref();
+    const urlHistory = `messages/${user.uid}/`;
+    const messagesDB = rootDB.child(urlHistory);
+
+    messagesDB.on('value', async (snapshot) => {
+      // console.log('data history : ', snapshot.val());
+      if (snapshot.val()) {
+        const oldData = snapshot.val();
+        const data = [];
+
+        const promises = await Object.keys(oldData).map(async (key) => {
+          const urlUidDoctor = `doctors/${oldData[key].lastUidPartner}`;
+          const detailDoctor = await rootDB.child(urlUidDoctor).once('value');
+          console.log('detail doctor: ', detailDoctor.val());
+          data.push({
+            id: key,
+            detailDoctor: detailDoctor.val(),
+            ...oldData[key],
+          });
+        });
+        await Promise.all(promises);
+
+        console.log('data history terbaru: ', data);
+        setHistoryChat(data);
+      }
+    });
+  }, [user.uid]);
+
+  const getDataUserFromLocal = () => {
+    getData('user').then((res) => {
+      setUser(res);
+    });
+  };
+
   return (
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.title}>Messages</Text>
-        {doctors.map((doctor) => {
+        {historyChat.map((chat) => {
+          const dataDoctor = {
+            id: chat.detailDoctor.uid,
+            data: chat.detailDoctor, // data ini akan di push ke notif
+          };
           return (
             <List
               //ibarat kata key ini adalah primary key, diambil dari yang unique
-              key={doctor.id}
-              profile={doctor.profile}
-              name={doctor.name}
-              desc={doctor.desc}
-              onPress={() => navigation.navigate('Chatting')}
+              key={chat.id}
+              profile={{uri: chat.detailDoctor.photo}}
+              name={chat.detailDoctor.fullName}
+              desc={chat.lastContentChat}
+              onPress={() => navigation.navigate('Chatting', dataDoctor)}
             />
           );
         })}
@@ -50,7 +73,7 @@ export default Messages;
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.cadangan,
     flex: 1,
   },
   content: {

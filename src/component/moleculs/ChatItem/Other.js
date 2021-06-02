@@ -3,15 +3,15 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {Doctor1} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Other = () => {
+const Other = ({text, date, photo}) => {
   return (
     <View style={styles.container}>
-      <Image source={Doctor1} style={styles.profilDoc} />
+      <Image source={photo} style={styles.profilDoc} />
       <View>
         <View style={styles.chatContent}>
-          <Text style={styles.text}>Ya enggak lah, bodoh kali kau nih.</Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
-        <Text style={styles.date}>2.40 PM</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
     </View>
   );
@@ -19,7 +19,6 @@ const Other = () => {
 
 export default Other;
 
-const widthMaxContainer = '80%';
 const styles = StyleSheet.create({
   profilDoc: {
     width: 30,
@@ -34,9 +33,9 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   chatContent: {
-    maxWidth: widthMaxContainer,
     padding: 12,
     paddingRight: 18,
+    marginRight:100,
     backgroundColor: colors.primary,
     borderRadius: 10,
     borderBottomLeftRadius: 0,

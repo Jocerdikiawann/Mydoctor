@@ -16,8 +16,10 @@ import IconEditProfile from './ic_account.svg';
 import IconLanguage from './ic_language.svg';
 import IconHelpCenter from './ic_helpCenter.svg';
 import IconRateUs from './ic_rateUs.svg';
+import IconStarKosong from './starKosong.svg';
 
 export {
+  IconStarKosong,
   IconEditProfile,
   IconLanguage,
   IconHelpCenter,

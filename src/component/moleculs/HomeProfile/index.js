@@ -13,7 +13,7 @@ const HomeProfile = ({onPress}) => {
   //munculkan foto di image profile
   useEffect(() => {
     getData('user').then((res) => {
-      console.log('data user: ', res);
+      // console.log('data user: ', res);
       const data = res;
       //ubah type image yang berada di local
       data.photo = {uri: res.photo};

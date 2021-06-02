@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
-import {Button, Gap, Header, Link} from '../../component';
-import {colors, fonts, storeData} from '../../utils';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {showMessage} from 'react-native-flash-message';
-import {Fire} from '../../config';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { IconAddPhoto, IconRemovePhoto, ILNullPhoto } from '../../assets';
+import { Button, Gap, Header, Link } from '../../component';
+import { Fire } from '../../config';
+import { colors, fonts, showError, storeData } from '../../utils';
 
 const UploadPhoto = ({navigation, route}) => {
   //menerima parameter di pages register
@@ -28,12 +27,7 @@ const UploadPhoto = ({navigation, route}) => {
         //response didcancel didapat dari response bawaan react native
         if (response.didCancel || response.error) {
           //jika di cancel maka tampilkan pesan ini
-          showMessage({
-            message: 'Oops, anda tidak memilih foto manapun',
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('Oopps, anda tidak memilih foto manapun!');
           //ketika berhasil upload image tampilkan ini
         } else {
           //melihat response apa saja setelah upload
